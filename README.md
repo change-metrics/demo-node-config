@@ -15,7 +15,7 @@ dhall --ascii format --inplace ./config.dhall
 ```
 
 - Submit the Pull Request
-- Wait for the CI to success
+- Wait for the CI to success [TODO]
 
 ## Configuration to land on the demo node
 
