@@ -11,7 +11,7 @@ Configuration must be provided via [Dhall][dhall-lang] using the
 
 ```
 dhall-to-yaml <<< ./config.yaml
-dhall --ascii format --inplace ./config.dhall
+dhall format --inplace ./config.dhall
 ```
 
 - Submit the Pull Request
