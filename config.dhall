@@ -3,7 +3,9 @@ let default_since = "2000-01-01"
 
 let --| The main github organizations indexes
     gh_orgs =
-      [ "bitcoin", "python", "elastic", "kubernetes", "dhall-lang" ]
+      [ "bitcoin", "python", "elastic", "dhall-lang" ]
+
+let kubernetes = [ "kubernetes", "openshift" ]
 
 let --| The ansible index configuration: crawl the orgs and extra repository from other orgs
     ansible =
@@ -97,6 +99,18 @@ let --| The ansible index configuration
                 ]
           }
 
+let -- | The kubernetes index configuration
+    kubernetes_index =
+      Monocle.Workspace::{
+      , name = "kubernetes"
+      , crawlers =
+          Prelude.List.map
+            Text
+            Monocle.Crawler.Type
+            (λ(name : Text) → mkGHCrawler (mkGHOrg name))
+            kubernetes
+      }
+
 let --| Create a github crawler configuration for monocle
     mkSimpleGHIndex =
       λ(name : Text) →
@@ -106,5 +120,6 @@ let createSimpleGHIndexes =
       Prelude.List.map Text Monocle.Workspace.Type mkSimpleGHIndex
 
 in  Monocle.Config::{
-    , workspaces = createSimpleGHIndexes gh_orgs # [ ansible_index ]
+    , workspaces =
+        createSimpleGHIndexes gh_orgs # [ ansible_index, kubernetes_index ]
     }
