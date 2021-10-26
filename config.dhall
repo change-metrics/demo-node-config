@@ -43,10 +43,12 @@ let --| The ansible index configuration: crawl the orgs and extra repository fro
 
 let --| Belows are function to create the Monocle configuration
     Monocle =
-      https://raw.githubusercontent.com/change-metrics/dhall-monocle/e31ff3b224c5061197b7db808555ecbe443966fb/package.dhall sha256:5dc26b722b2a6bf66307c40c25238cff8dda90aa68ebe453d058567a08447295
+      https://raw.githubusercontent.com/change-metrics/dhall-monocle/aa2d01c388d699d71ac73199b34b8b40e78c46aa/package.dhall
+        sha256:7038cf32c731e7a94d3f1dd48cfe750b8a8f9ed8e47e42c48ee6eb9efb5639b1
 
 let Prelude =
-      https://prelude.dhall-lang.org/v17.0.0/package.dhall sha256:10db3c919c25e9046833df897a8ffe2701dc390fa0893d958c3430524be5a43e
+      https://prelude.dhall-lang.org/v17.0.0/package.dhall
+        sha256:10db3c919c25e9046833df897a8ffe2701dc390fa0893d958c3430524be5a43e
 
 let --| Create a github organization configuration
     mkGHRepo =
