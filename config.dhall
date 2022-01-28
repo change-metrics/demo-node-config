@@ -15,8 +15,8 @@ let --| The ansible index configuration: crawl the orgs and extra repository fro
         , { org = "CiscoDevNet", repo = "ansible-intersight" }
         , { org = "CiscoDevNet", repo = "ansible-meraki" }
         , { org = "CiscoDevNet", repo = "ansible-mso" }
-        , { org = "CiscoDevNet", repo = "anisble-ucs" }
-        , { org = "F5Networks", repo = "f5-anisble" }
+        , { org = "CiscoDevNet", repo = "ansible-ucs" }
+        , { org = "F5Networks", repo = "f5-ansible" }
         , { org = "Pure-Storage-Ansible", repo = "FlashArray-Collection" }
         , { org = "Pure-Storage-Ansible", repo = "FlashBlade-Collection" }
         , { org = "ServiceNowITOM", repo = "servicenow-ansible" }
