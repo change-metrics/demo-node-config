@@ -3,7 +3,7 @@ let default_since = "2000-01-01"
 
 let --| The main github organizations indexes
     gh_orgs =
-      [ "bitcoin", "python", "elastic", "dhall-lang" ]
+      [ "bitcoin", "python", "elastic", "dhall-lang", "leanprover-community" ]
 
 let kubernetes = [ "kubernetes", "openshift" ]
 
