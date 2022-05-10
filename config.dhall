@@ -121,7 +121,33 @@ let --| Create a github crawler configuration for monocle
 let createSimpleGHIndexes =
       Prelude.List.map Text Monocle.Workspace.Type mkSimpleGHIndex
 
+let createGerritProvider =
+      λ(repos : List Text) →
+      λ(url : Text) →
+      λ(prefix : Optional Text) →
+        Monocle.Provider.Gerrit
+          Monocle.Gerrit::{
+          , gerrit_repositories = Some repos
+          , gerrit_url = url
+          , gerrit_prefix = prefix
+          }
+
+let opendev_url = "https://review.opendev.org"
+
+let -- | The opendev/zuul index configuration
+    zuul_index =
+      let zuul_crawler =
+            Monocle.Crawler::{
+            , name = "opendev-zuul"
+            , update_since = default_since
+            , provider =
+                createGerritProvider [ "^zuul/.*" ] opendev_url (None Text)
+            }
+
+      in  Monocle.Workspace::{ name = "zuul", crawlers = [ zuul_crawler ] }
+
 in  Monocle.Config::{
     , workspaces =
-        createSimpleGHIndexes gh_orgs # [ ansible_index, kubernetes_index ]
+          createSimpleGHIndexes gh_orgs
+        # [ ansible_index, kubernetes_index, zuul_index ]
     }
