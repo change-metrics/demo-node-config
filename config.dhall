@@ -50,6 +50,16 @@ let Prelude =
       https://prelude.dhall-lang.org/v17.0.0/package.dhall
         sha256:10db3c919c25e9046833df897a8ffe2701dc390fa0893d958c3430524be5a43e
 
+let mkGHOrgCrawler =
+      λ(name : Text) →
+        Monocle.Crawler::{
+        , name = "gh-${name}"
+        , update_since = default_since
+        , provider =
+            Monocle.Provider.Github
+              Monocle.Github::{ github_organization = name }
+        }
+
 let --| Create a github organization configuration
     mkGHRepo =
       λ(info : { org : Text, repo : Text }) →
@@ -150,7 +160,7 @@ let haskell_index =
       Monocle.Workspace::{
       , name = "haskell"
       , crawlers =
-        [ mkSimpleGHIndex "haskell"
+        [ mkGHOrgCrawler "haskell"
         , Monocle.Crawler::{
           , name = "ghkmett"
           , update_since = default_since
@@ -169,6 +179,7 @@ let haskell_index =
                   , "ad"
                   , "free"
                   , "semigroupoids"
+                  , "gl"
                   ]
                 }
           }
