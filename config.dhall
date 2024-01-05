@@ -43,8 +43,8 @@ let --| The ansible index configuration: crawl the orgs and extra repository fro
 
 let --| Belows are function to create the Monocle configuration
     Monocle =
-      https://raw.githubusercontent.com/change-metrics/dhall-monocle/aa2d01c388d699d71ac73199b34b8b40e78c46aa/package.dhall
-        sha256:7038cf32c731e7a94d3f1dd48cfe750b8a8f9ed8e47e42c48ee6eb9efb5639b1
+      https://raw.githubusercontent.com/change-metrics/monocle/db5c16b1c78e0f209ba84c9471b774e32521f5fb/schemas/monocle/config/package.dhall
+        sha256:bec5b4fe2f3a191137ae4e2f3110e98131b1eae3c092193ddaf817b983932488
 
 let Prelude =
       https://prelude.dhall-lang.org/v17.0.0/package.dhall
@@ -146,8 +146,37 @@ let -- | The opendev/zuul index configuration
 
       in  Monocle.Workspace::{ name = "zuul", crawlers = [ zuul_crawler ] }
 
+let haskell_index =
+      Monocle.Workspace::{
+      , name = "haskell"
+      , crawlers =
+        [ mkSimpleGHIndex "haskell"
+        , Monocle.Crawler::{
+          , name = "ghkmett"
+          , update_since = default_since
+          , provider =
+              Monocle.Provider.Github
+                Monocle.Github::{
+                , github_organization = "ekmett"
+                , github_repositories = Some
+                  [ "lens"
+                  , "exceptions"
+                  , "profunctors"
+                  , "comonad"
+                  , "pointed"
+                  , "adjunctions"
+                  , "trifecta"
+                  , "ad"
+                  , "free"
+                  , "semigroupoids"
+                  ]
+                }
+          }
+        ]
+      }
+
 in  Monocle.Config::{
     , workspaces =
           createSimpleGHIndexes gh_orgs
-        # [ ansible_index, kubernetes_index, zuul_index ]
+        # [ ansible_index, kubernetes_index, zuul_index, haskell_index ]
     }
