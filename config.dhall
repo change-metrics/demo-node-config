@@ -159,6 +159,30 @@ let -- | The opendev/zuul index configuration
 let haskell_index =
       Monocle.Workspace::{
       , name = "haskell"
+      , projects = Some
+        [ Monocle.Project::{
+          , name = "core-libraries"
+          , repository_regex = Some
+              ( Prelude.Text.concatSep
+                  "|"
+                  [ "haskell/stm"
+                  , "haskell/text"
+                  , "haskell/bytestrings"
+                  , "haskell/containers"
+                  , "haskell/network"
+                  , "haskell/cabal"
+                  , "haskell/primitive"
+                  , "haskell/process"
+                  , "haskell/time"
+                  , "haskell/win32"
+                  , "haskell/alex"
+                  , "haskell/happy"
+                  , "haskell/filepath"
+                  , "haskell/directory"
+                  ]
+              )
+          }
+        ]
       , crawlers =
         [ mkGHOrgCrawler "haskell"
         , Monocle.Crawler::{
