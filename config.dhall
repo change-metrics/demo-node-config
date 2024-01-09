@@ -156,59 +156,7 @@ let -- | The opendev/zuul index configuration
 
       in  Monocle.Workspace::{ name = "zuul", crawlers = [ zuul_crawler ] }
 
-let haskell_index =
-      Monocle.Workspace::{
-      , name = "haskell"
-      , projects = Some
-        [ Monocle.Project::{
-          , name = "core-libraries"
-          , repository_regex = Some
-              ( Prelude.Text.concatSep
-                  "|"
-                  [ "haskell/stm"
-                  , "haskell/text"
-                  , "haskell/bytestrings"
-                  , "haskell/containers"
-                  , "haskell/network"
-                  , "haskell/cabal"
-                  , "haskell/primitive"
-                  , "haskell/process"
-                  , "haskell/time"
-                  , "haskell/win32"
-                  , "haskell/alex"
-                  , "haskell/happy"
-                  , "haskell/filepath"
-                  , "haskell/directory"
-                  ]
-              )
-          }
-        ]
-      , crawlers =
-        [ mkGHOrgCrawler "haskell"
-        , Monocle.Crawler::{
-          , name = "ghkmett"
-          , update_since = default_since
-          , provider =
-              Monocle.Provider.Github
-                Monocle.Github::{
-                , github_organization = "ekmett"
-                , github_repositories = Some
-                  [ "lens"
-                  , "exceptions"
-                  , "profunctors"
-                  , "comonad"
-                  , "pointed"
-                  , "adjunctions"
-                  , "trifecta"
-                  , "ad"
-                  , "free"
-                  , "semigroupoids"
-                  , "gl"
-                  ]
-                }
-          }
-        ]
-      }
+let haskell_index = ./haskell.dhall
 
 in  Monocle.Config::{
     , workspaces =
