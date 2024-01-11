@@ -69,5 +69,17 @@ in  Monocle.Workspace::{
                 ]
               }
         }
+      , Monocle.Crawler::{
+        , name = "ghc"
+        , update_since = default_since
+        , provider =
+            Monocle.Provider.Gitlab
+              Monocle.Gitlab::{
+              , gitlab_token = Some "GITLAB_HASKELL_TOKEN"
+              , gitlab_url = Some "https://gitlab.haskell.org/api/graphql"
+              , gitlab_organization = "ghc"
+              , gitlab_repositories = Some [ "ghc", "head.hackage" ]
+              }
+        }
       ]
     }
